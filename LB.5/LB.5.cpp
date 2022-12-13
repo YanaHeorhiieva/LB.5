@@ -1,18 +1,19 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <string>
-#include <algorithm>
 
 using namespace std;
 
+//КЛАСИ
 //клас для книг
 class Book
 {
     //публічний, щоб компоненти були доступними і поза класом
 public:
-    int NUMBER;
+    int NUMB;
     string NAME;
     string AUTHOR;
+    string ANNOTATION;
     string DATE;
 };
 
@@ -20,10 +21,10 @@ public:
 class Customer
 {
 public:
-    int NUMBER;
+    int NUMB;
     string NAME;
-    string BIRTHDAY;
-    string PHONE;
+    string BIRHT;
+    string PHONENUMB;
 };
 
 //клас для дат
@@ -33,11 +34,13 @@ public:
     string DATE;
 };
 
+//ФУНКЦІЇ
 //загальна функція, якщо щось пішло не так, помилка
 void absurd()
 {
     cout << "IT SEEMS YOU ARE DOING SMTH WRONG:(";
 }
+
 
 //2 функції помилки 
 void error1(ifstream& x)
@@ -55,8 +58,8 @@ void error2(ofstream& y)
 void list(ifstream& z)
 {
     string lst;
-              
-              //функція, яка видає правду
+
+    //функція, яка видає правду
     while (!z.eof())
     {
         lst = "";
@@ -65,22 +68,21 @@ void list(ifstream& z)
         cout << lst << '\n';
     }
 }
-
 //головна функція, що викликає виществоренні функції
 int main()
 {
     //створення текстових файлів
     string way_cust = "CUSTOMERS.txt";
     string way_book1 = "BOOKS1.txt";
-    string way_book2 = "BOOKS2.txt";
     string way_infor1 = "TOOKEN.txt";
     string way_infor2 = "RETURNED.txt";
+    string way_book2 = "BOOKS2.txt";
 
-    Book b, o, g, k;
+    Book i, j, k, l;
     Customer newone, old;
     Dates dmy;
 
-    cout << "FIRST I NEED TO KNOW IF YOU ARE A LIBRARIAN OR A VISITOR?" << endl; 
+    cout << "FIRST I NEED TO KNOW IF YOU ARE A LIBRARIAN OR A VISITOR?" << endl;
     cout << "just write here 1 or 2:" << endl;
     int a;
     cout << "-> ";
@@ -93,12 +95,12 @@ int main()
         cout << endl << "GOT IT. SO WRITE DOWN: " << endl;
         cout << "1 - to add a book" << endl;
         cout << "2 - to try to delete a book:)" << endl;
-        int s;
+        int b;
         cout << "-> ";
-        cin >> s;
+        cin >> b;
 
         //якщо додати нову книгу
-        if (s == 1)
+        if (b == 1)
         {
             //список книг, що є на "базі"
             ifstream showlist;
@@ -108,45 +110,49 @@ int main()
             if (showlist.is_open())
             {
                 cout << "HERE IS ALL BOOKS SEEABLE: " << endl;
-                cout << endl <<"      *********      " << endl;
+                cout << endl << "      *********      " << endl;
                 list(showlist);
-                cout <<"      *********      " << endl;
+                cout << "      *********      " << endl;
             }
             showlist.close();
             
-            //вивід цього списку для додавання нової бажаної
+            ///вивід цього списку для додавання нової бажаної
             ofstream reveallist;
             reveallist.open(way_book1, ofstream::app);
             error2(reveallist);
 
             if (reveallist.is_open())
             {
+                cout << endl;
                 cout << "YOU WANNA ADD BOOK? GOT IT." << endl;
-                cout << "SO, THEN HERE IS THE STEPS:" << endl;
+                cout << endl << "SO, THEN HERE IS THE STEPS:" << endl;
                 cout << "   WRITE THE NAMECOVER OF BOOK (using its serial number):" << endl;
                 cout << "-> ";
-                cin >> b.NAME;
+                cin >> i.NAME;
 
-                cout << "   ALSO WHO IS THE AUTHOR?:" << endl;
+                cout << endl << "   ALSO WHO IS THE AUTHOR?:" << endl;
                 cout << "-> ";
-                cin >> b.AUTHOR;
+                cin >> i.AUTHOR;
 
-                cout << "   AND THE DATA OF PRINTING (to be included in the database):" << endl;
+                cout << endl << "   AND THE DATA OF PRINTING (to be included in the database):" << endl;
                 cout << "-> ";
-                cin >> b.DATE;
+                cin >> i.DATE;
 
+                //cin >> i.NAME;
+
+                cout << endl;
                 cout << endl << "      *********      " << endl;
-                cout << "FINALY YOUR BOOK`S INFO:" << " " << endl << b.NAME << " " << b.AUTHOR << " " << b.DATE << endl;
+                cout << "FINALY YOUR BOOK`S INFO:" << " " << endl << i.NAME << " " << i.AUTHOR << " " << i.DATE << endl;
                 cout << "      *********      " << endl;
-                reveallist << endl << b.NAME << " " << b.AUTHOR << " " << b.DATE << endl;
+                reveallist << endl << i.NAME << " " << i.AUTHOR << " " << i.DATE << endl;
 
+                cout << endl;
                 cout << endl << "EVERYTHING TURNED OUT GREAT, THE BOOK IS ADDED!" << endl;
             }
             reveallist.close();
         }
-
         //якщо видалити 
-        else if (s == 2)
+        else if (b == 2)
         {
             ifstream reveallist;
             reveallist.open(way_book1);
@@ -159,211 +165,210 @@ int main()
                 cout << "      *********      " << endl;
 
                 cout << endl << "BUT, UNFORTUNATELLY, YOU CANNOT DELETE ANY BOOKS."
-                     "YOU ARE JUST A LIBRARIAN AND DO NOT HAVE SUCH PRIVILEGES, UNLIKE THE MAIN MANAGMENT:( : " << endl;
+                    "YOU ARE JUST A LIBRARIAN AND DO NOT HAVE SUCH PRIVILEGES:( : " << endl;
             }
             reveallist.close();
         }
+        else
+            absurd();
+    }
 
-        //якщо відвідувач
-        else if (a == 2)
+    //якщо відвідувач
+    else if (a == 2)
+    {
+        cout << endl << "OKEY, MAYBE YOU HAVE YOUR ID NUMBER IN OUR BASE(3) OR ARE YOU HAVING A FIRST TIME BEING HERE(4)?" << endl;
+        cout << "just write here 1 or 0:" << '\n';
+        int c;
+        cout << "-> ";
+        cin >> c;
+
+        //якщо відвідувач має ID
+        if (c == 1)
         {
-            cout << endl << "OKEY, MAYBE YOU HAVE YOUR ID NUMBER IN OUR BASE(3) OR ARE YOU HAVING A FIRST TIME BEING HERE(4)?" << endl;
-            cout << "just write here 3 or 4:" << '\n';
-            int c;
+            cout << endl << "WELCOME BACK THEN!" << endl;
+            cout << "1 - to return a book" << endl;
+            cout << "2 - to take a book:)" << endl;
+            int d;
             cout << "-> ";
-            cin >> c;
+            cin >> d;
 
-            //якщо відвідувач має ID
-            if (c == 3)
+            if (d == 1)
             {
-                cout << endl << "WELCOME BACK THEN!" << endl;
-                cout << "1 - to return a book" << endl;
-                cout << "2 - to take a book:)" << endl;
-                int d;
+                cout << "   WHAT IS YOUR NAME SO?:" << endl;
                 cout << "-> ";
-                cin >> d;
+                cin >> old.NAME;
 
-                if (d == 1)
+                cout << "   WHICH NUMBER OF BOOK YOU WANNA RETURN?:" << endl;
+                cout << "-> ";
+                cin >> j.NUMB;
+
+                cout << "   ALSO WRITE THE TODAY`S DATA:" << endl;
+                cout << "-> ";
+                cin >> dmy.DATE;
+
+                ofstream returnbook;
+                returnbook.open(way_infor2, ofstream::app);
+                //err2(put_book, path_info2);
+                error2(returnbook);
+                if (returnbook.is_open())
                 {
-                    cout << "   WHAT IS YOUR NAME SO?:" << endl;
-                    cout << "-> ";
-                    cin >> old.NAME;
-                   
-                    cout << "   WHICH NUMBER OF BOOK YOU WANNA RETURN?:" << endl;
-                    cout << "-> ";
-                    cin >> o.NUMBER;
+                    returnbook << endl << old.NAME << " " << j.NUMB << " " << dmy.DATE;
+                    returnbook.close();
 
-                    cout << "   ALSO WRITE THE TODAY`S DATA:" << endl;
+                    cout << "THIS BOOK RETURNED. THANK YOU, WE ARE WAITING FOR YOU AGAIN!" << endl;
+
+                }
+            }
+
+            //якщо забрати книгу
+            else if (d == 2)
+            {
+                cout << "WHAT IS YOUR NAME SO?:";
+                cout << "-> ";
+                cin >> old.NAME;
+
+                //вивід усього списку 
+                ifstream showlist;
+                showlist.open(way_book1);
+                error1(showlist);
+
+                if (showlist.is_open())
+                {
+                    cout << endl << "      *********      " << endl;
+                    list(showlist);
+                    cout << "      *********      " << endl;
+                    showlist.close();
+
+                    cout << old.NAME << "," << "WHICH ONE YOU WANNA TOOK?:" << endl;
+                    cout << "-> ";
+                    cin >> k.NUMB;
+
+                    cout << "ALSO WRITE THE TODAY`S DATA:" << endl;
                     cout << "-> ";
                     cin >> dmy.DATE;
 
-                    ofstream returnbook;
-                    returnbook.open(way_infor2, ofstream::app);
-                    error2(returnbook);
+                    //узята книга
+                    ofstream tookenbook;
+                    tookenbook.open(way_infor1, ofstream::app);
+                    error2(tookenbook);
 
-                    if (returnbook.is_open())
+                    if (tookenbook.is_open())
                     {
-                        returnbook << endl << old.NAME << " " << o.NUMBER << " " << dmy.DATE;
-                        returnbook.close();
-
-                        cout << "THIS BOOK RETURNED. THANK YOU, WE ARE WAITING FOR YOU AGAIN!" << endl;
+                        tookenbook << endl << old.NAME << " " << k.NUMB << " " << dmy.DATE << "-";
                     }
+                    tookenbook.close();
+
+                    cout << endl << "GOOD IMPRESSIONS FROM THE BOOK AND WAITING FOR YOU BACK FOR NEW BOOK`S ADVENTURES!";
                 }
+            }
+            else
+                absurd();
+        }
+        //якщо новенький
+        else if (c == 0)
+        {
 
-                //якщо забрати книгу
-                else if (d == 2)
+            cout << endl << "OKEY, WELCOME SO! YOU CHOOSE THE BEST PLACE TO DIVE INTO THE AMAZING WORLD OF LITERATURE!" << endl;
+            cout << "HERE YOU CAN SEE THE LIST OF OUR CUSTOMERS JUST LIKE YOU. YOUR TASK IS REMMEMBER YOUR NUMBER";
+            cout << endl << "(look at the last person): " << endl;
+
+            //список користувачів
+            ifstream showcust;
+            showcust.open(way_cust);
+            error1(showcust);
+
+            if (showcust.is_open())
+            {
+                cout << endl << "      *********      " << endl;
+                list(showcust);
+                cout << "      *********      " << endl;
+            }
+            showcust.close();
+
+            //новий відвідувач
+            ofstream revealcust;
+            revealcust.open(way_cust, ofstream::app);
+            error2(revealcust);
+
+            if (revealcust.is_open())
+            {
+                cout << endl << "HERE IS A QUESTIONNAIRE YOU NEED TO FILL TO BECOME PART OF OUR FAMILY" << endl;
+                cout << endl << "   WRITE YOUR NAME (writing a number befor it):";
+                cout << "-> ";
+                cin >> newone.NAME;
+
+                cout << endl << "   WRITE YOUR BIRTH DATA: ";
+                cout << "-> ";
+                cin >> newone.BIRHT;
+
+                cout << endl << "   WRITE YOUR PHONE NUMBER:";
+                cout << "-> ";
+                cin >> newone.PHONENUMB;
+
+                cout << endl << "      *********      " << endl;
+                cout << "FINALY YOUR PERSONALLY INFO: " << " " << newone.NAME << " " << newone.BIRHT << " " << newone.PHONENUMB << " " << endl;
+                cout << "      *********      " << endl;
+
+                revealcust << endl << newone.NAME << " " << newone.BIRHT << " " << newone.PHONENUMB << " ";
+                cout << "CONGRADS! YOU ARE NOW THE MEMBER OF OUR BIG-BOOKS-FAMILY. HAPPY TO SEE YOU HERE!" << endl;
+                revealcust.close();
+
+                cout << newone.NAME << "," << "OKEY, DO YOU WANT TO TAKE A BOOK NOW?" << endl;
+                cout << "just write here 1 or 0:" << endl;
+                cout << "-> ";
+                int w;
+                cin >> w;
+
+                if (w == 1)
                 {
-                    cout << "WHAT IS YOUR NAME SO?:";
-                    cout << "-> ";
-                    cin >> old.NAME;
-
-                    //вивід усього списку 
-                    ifstream showlist;
-                    showlist.open(way_book1);
-                    error1(showlist);
-
-                    if (showlist.is_open())
+                    //вивід списку книг
+                    ifstream reveallist;
+                    reveallist.open(way_book1);
+                    //err(book_out, path_book);
+                    error1(reveallist);
+                    if (reveallist.is_open())
                     {
+                        cout << newone.NAME << ", " << "CHOOSE A BOOK BY WRITING ITS NUMBER: " << endl;
+                        
                         cout << endl << "      *********      " << endl;
-                        list(showlist);
+                        list(reveallist);
                         cout << "      *********      " << endl;
-                        showlist.close();
-
-                        cout << old.NAME << "," << "WHICH ONE YOU WANNA TOOK?:" << endl;
                         cout << "-> ";
-                        cin >> g.NUMBER;
+                        cin >> l.NUMB;
+                        reveallist.close();
 
                         cout << "ALSO WRITE THE TODAY`S DATA:" << endl;
                         cout << "-> ";
                         cin >> dmy.DATE;
 
-                        //узята книга
+                        //дані про взяту книгу
                         ofstream tookenbook;
                         tookenbook.open(way_infor1, ofstream::app);
                         error2(tookenbook);
 
                         if (tookenbook.is_open())
                         {
-                            tookenbook << endl << old.NAME << " " << g.NUMBER << " " << dmy.DATE << endl;
+                            tookenbook << endl << newone.NAME << " " << l.NUMB << " " << dmy.DATE << "-";
                         }
                         tookenbook.close();
 
                         cout << endl << "GOOD IMPRESSIONS FROM THE BOOK AND WAITING FOR YOU BACK FOR NEW BOOK`S ADVENTURES!";
                     }
-                    else
-                        absurd();
                 }
-            }
 
-            //якщо новенький
-            else if (c == 4)
-            {
-                cout << endl << "OKEY, WELCOME SO! YOU CHOOSE THE BEST PLACE TO DIVE INTO THE AMAZING WORLD OF LITERATURE!" << endl;
-                cout << "HERE YOU CAN SEE THE LIST OF OUR CUSTOMERS JUST LIKE YOU. YOUR TASK IS REMMEMBER YOUR NUMBER";
-                cout << endl << "(look at the last person): " << endl;
-
-                //список користувачів
-                ifstream showcust;
-                showcust.open(way_cust);
-                error1(showcust);
-
-                if (showcust.is_open())
+                else if (w == 0)
                 {
-                    cout << endl << "      *********      " << endl;
-                    list(showcust);
-                    cout << "      *********      " << endl;
+                    cout << "HAVE A NICE DAY SO! WAITING FOR YOU" << endl;
                 }
-                showcust.close();
-
-                //новий відвідувач
-                ofstream revealcust;
-                revealcust.open(way_cust, ofstream::app);
-                error2(revealcust);
-
-                if (revealcust.is_open())
-                {
-                    cout << endl << "HERE IS A QUESTIONNAIRE YOU NEED TO FILL TO BECOME PART OF OUR FAMILY" << endl;
-                    cout << endl << "   WRITE YOUR NAME (writing a number befor it):";
-                    cout << "-> ";
-                    cin >> newone.NAME;
-
-                    cout << endl << "   WRITE YOUR BIRTH DATA: ";
-                    cout << "-> ";
-                    cin >> newone.BIRTHDAY;
-
-                    cout << endl << "   WRITE YOUR PHONE NUMBER:";
-                    cout << "-> ";
-                    cin >> newone.PHONE;
-
-                    cout << endl << "      *********      " << endl;
-                    cout << "FINALY YOUR PERSONALLY INFO: " << " " << newone.NAME << " " << newone.BIRTHDAY << " " << newone.PHONE << " "  << endl;
-                    cout << "      *********      " << endl;
-
-                    revealcust << endl << newone.NAME << " " << newone.BIRTHDAY << " " << newone.PHONE << " " << "-";
-                    cout << "CONGRADS! YOU ARE NOW THE MEMBER OF OUR BIG-BOOKS-FAMILY. HAPPY TO SEE YOU HERE!" << endl;
-                    revealcust.close();
-
-                    cout << newone.NAME << "," << "OKEY, DO YOU WANT TO TAKE A BOOK NOW?" << endl;
-                    cout << "just write here 1 or 0:" << endl;
-                    cout << "-> ";
-                    int w;
-                    cin >> w;
-
-                    if (w == 1)
-                    {
-                        //вивід списку книг
-                        ifstream reveallist;
-                        reveallist.open(way_book1);
-                        error1(reveallist);
-
-                        if (reveallist.is_open())
-                        {
-                            cout << newone.NAME << "," << "CHOOSE A BOOK BY WRITING ITS NUMBER: " << endl;
-
-                            cout << endl << "      *********      " << endl;
-                            list(reveallist);
-                            cout << "      *********      " << endl;
-                            cout << "-> ";
-                            cin >> k.NUMBER;
-                            reveallist.close();
-
-                            cout << "ALSO WRITE THE TODAY`S DATA:" << endl;
-                            cout << "-> ";
-                            cin >> dmy.DATE;
-
-                            //дані про взяту книгу
-                            ofstream tookenbook;
-                            tookenbook.open(way_infor1, ofstream::app);
-                            error2(tookenbook);
-
-                            if (tookenbook.is_open())
-                            {
-                                tookenbook << endl << newone.NAME << " " << k.NUMBER << " " << dmy.DATE <<"-";
-                            }
-                            tookenbook.close();
-                            
-                            cout << endl << "GOOD IMPRESSIONS FROM THE BOOK AND WAITING FOR YOU BACK FOR NEW BOOK`S ADVENTURES!";
-                        }
-                    }
-
-                    else if (w == 0)
-                    {
-                        cout << "HAVE A NICE DAY SO! WAITING FOR YOU" << endl;
-                    }
-                    else
-                        absurd();
-                }
-               /* else
-                    absurd();*/
+                else
+                    absurd();
             }
-            else
-                absurd();
-        } 
+        }
         else
-            absurd();
+        absurd();
     }
-   else
-       absurd();
+    else
+    absurd();
 
     return 0;
 }
