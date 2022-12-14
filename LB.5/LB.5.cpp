@@ -120,7 +120,7 @@ int main()
             ///вивід цього списку для додавання нової бажаної
             ofstream reveallist;
             reveallist.open(way_book, ofstream::app);
-            error2(reveallist);
+            //error2(reveallist);
 
             if (reveallist.is_open())
             {
@@ -128,11 +128,14 @@ int main()
                 cout << "YOU WANNA ADD BOOK? GOT IT." << endl;
                 cout << endl << "SO, THEN HERE IS THE STEPS:" << endl;
 
-                cout << "   WRITE THE NAMECOVER OF BOOK (using its serial number):" << endl;
+                cout << "   WRITE THE NUMBER:" << endl;
+                cout << "-> ";
+                cin >> i.NUMB;
+
+                cout << "   WRITE THE NAMECOVER OF BOOK:" << endl;
                 cout << "-> ";
                 cin >> i.NAME;
 
-                cout << endl;
                 cout << "   ALSO WHO IS THE AUTHOR?:" << endl;
                 cout << "-> ";
                 cin >> i.AUTHOR;
@@ -205,7 +208,6 @@ int main()
 
                 ofstream returnbook;
                 returnbook.open(way_infor2, ofstream::app);
-                //err2(put_book, path_info2);
                 error2(returnbook);
                 if (returnbook.is_open())
                 {
@@ -257,6 +259,7 @@ int main()
             else
                 absurd();
         }
+
         //якщо новенький
         else if (c == 0)
         {
@@ -285,27 +288,31 @@ int main()
             if (revealcust.is_open())
             {
                 cout << endl << "HERE IS A QUESTIONNAIRE YOU NEED TO FILL TO BECOME PART OF OUR FAMILY" << endl;
-                cout << endl << "   WRITE YOUR NAME (writing a number befor it):";
+                cout << "   WRITE THE NUMBER FIRST:" << endl;
+                cout << "-> ";
+                cin >> newone.NUMB;
+
+                cout << endl << "   WRITE YOUR NAME:" << endl;
                 cout << "-> ";
                 cin >> newone.NAME;
 
-                cout << endl << "   WRITE YOUR BIRTH DATA: ";
+                cout << endl << "   WRITE YOUR BIRTH DATA: " << endl;
                 cout << "-> ";
                 cin >> newone.BIRHT;
 
-                cout << endl << "   WRITE YOUR PHONE NUMBER:";
+                cout << endl << "   WRITE YOUR PHONE NUMBER:" << endl;
                 cout << "-> ";
                 cin >> newone.PHONENUMB;
 
                 cout << endl << "      *********      " << endl;
-                cout << "FINALY YOUR PERSONALLY INFO: " << " " << newone.NAME << " " << newone.BIRHT << " " << newone.PHONENUMB << " " << endl;
+                cout << "FINALY YOUR PERSONALLY INFO: " << " " << newone.NUMB << newone.NAME << " " << newone.BIRHT << " " << newone.PHONENUMB << " " << endl;
                 cout << "      *********      " << endl;
 
-                revealcust << endl << newone.NAME << " " << newone.BIRHT << " " << newone.PHONENUMB << " ";
+                revealcust << endl << newone.NUMB << newone.NAME << " " << newone.BIRHT << " " << newone.PHONENUMB << " ";
                 cout << "CONGRADS! YOU ARE NOW THE MEMBER OF OUR BIG-BOOKS-FAMILY. HAPPY TO SEE YOU HERE!" << endl;
                 revealcust.close();
 
-                cout << newone.NAME << "," << "OKEY, DO YOU WANT TO TAKE A BOOK NOW?" << endl;
+                cout << newone.NAME << "," << " OKEY, DO YOU WANT TO TAKE A BOOK NOW?" << endl;
                 cout << "just write here 1 or 0:" << endl;
                 cout << "-> ";
                 int w;
